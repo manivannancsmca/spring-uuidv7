@@ -58,7 +58,7 @@ GET {{host}}/orders
 # Get Order By UUID
 #############################################################
 
-GET {{host}}/orders/0198074d-fd0d-7d4c-a59c-3f84d49d0d0d
+GET {{host}}/orders/019f60b1-c93c-791c-91c0-888c877d0422
 
 ###
 
