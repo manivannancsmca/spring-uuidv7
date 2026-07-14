@@ -18,14 +18,14 @@ public class OrderService {
 
     private final UuidGenerator uuidGenerator;
 
-    public Order save(Order order){
+    public Order save(Order order) {
 
         order.setId(uuidGenerator.generate());
         return repository.save(order);
 
     }
 
-    public List<Order> finaAll() {
+    public List<Order> findAll() {
         return repository.findAll();
     }
 
