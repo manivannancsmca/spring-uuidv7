@@ -1,6 +1,10 @@
 package com.spring_uuidv7.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import javax.management.RuntimeErrorException;
 
 import org.springframework.stereotype.Service;
 
@@ -19,7 +23,6 @@ public class OrderService {
     private final UuidGenerator uuidGenerator;
 
     public Order save(Order order) {
-
         order.setId(uuidGenerator.generate());
         return repository.save(order);
 
@@ -27,6 +30,10 @@ public class OrderService {
 
     public List<Order> findAll() {
         return repository.findAll();
+    }
+
+    public Order findById(UUID id) {
+       return repository.findById(id).orElseThrow( () -> new RuntimeException("no data found" + id));
     }
 
 }

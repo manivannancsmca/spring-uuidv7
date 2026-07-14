@@ -1,6 +1,7 @@
 package com.spring_uuidv7.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,12 @@ public class OrderController {
 
     }
 
+    @GetMapping("/{id}")
+    public Order findById(@PathVariable UUID id){
+        return service.findById(id);
+
+    }
+    
     @GetMapping
     public List<Order> findAll() {
         return service.findAll();
