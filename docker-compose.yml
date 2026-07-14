@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  # 1. Production MySQL Storage Layer
+  order-db:
+    image: mysql:8.0
+    container_name: order-db
+    restart: unless-stopped
+    ports:
+      - "3307:3306" # Your app on localhost will connect to port 3311
+    environment:
+      - MYSQL_ROOT_PASSWORD=prod_root_secure_pass_99
+      - MYSQL_USER=appuser
+      - MYSQL_PASSWORD=apppassword
+      - MYSQL_DATABASE=order_db
+    volumes:
+      - order_data:/var/lib/mysql
+      - ./infrastructure/mysql_config:/etc/mysql/conf.d # Keeps your custom configuration organized
+    command: --default-authentication-plugin=mysql_native_password --binlog-format=ROW --binlog-row-image=FULL
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pprod_root_secure_pass_99"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
+    networks:
+      - spring-uuidv7
+
+volumes:
+  order_data:
+  es_data:
+
+networks:
+  spring-uuidv7:
+    driver: bridge
